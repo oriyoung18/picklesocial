@@ -1,5 +1,6 @@
-const XO_CACHE = "xo-pickleball-shell-v1";
-const XO_SHELL = [
+const PICKLESOCIAL_CACHE = "picklesocial-shell-v2";
+const LEGACY_CACHE_PREFIX = "xo-pickleball-";
+const PICKLESOCIAL_SHELL = [
   "/",
   "/index.html",
   "/styles.css",
@@ -17,8 +18,8 @@ const XO_SHELL = [
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(XO_CACHE)
-      .then((cache) => cache.addAll(XO_SHELL))
+    caches.open(PICKLESOCIAL_CACHE)
+      .then((cache) => cache.addAll(PICKLESOCIAL_SHELL))
       .then(() => self.skipWaiting())
   );
 });
@@ -27,7 +28,10 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys()
       .then((keys) => Promise.all(
-        keys.filter((key) => key.startsWith("xo-pickleball-") && key !== XO_CACHE)
+        keys.filter((key) =>
+          (key.startsWith("picklesocial-") || key.startsWith(LEGACY_CACHE_PREFIX)) &&
+          key !== PICKLESOCIAL_CACHE
+        )
             .map((key) => caches.delete(key))
       ))
       .then(() => self.clients.claim())
@@ -53,7 +57,7 @@ self.addEventListener("fetch", (event) => {
       fetch(req)
         .then((res) => {
           const copy = res.clone();
-          caches.open(XO_CACHE).then((cache) => cache.put("/index.html", copy));
+          caches.open(PICKLESOCIAL_CACHE).then((cache) => cache.put("/index.html", copy));
           return res;
         })
         .catch(async () => {
@@ -70,7 +74,7 @@ self.addEventListener("fetch", (event) => {
       .then((res) => {
         if (res && res.ok) {
           const copy = res.clone();
-          caches.open(XO_CACHE).then((cache) => cache.put(req, copy));
+          caches.open(PICKLESOCIAL_CACHE).then((cache) => cache.put(req, copy));
         }
         return res;
       })

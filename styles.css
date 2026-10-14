@@ -332,8 +332,8 @@ footer{padding:24px;text-align:center;color:#535d6c;font-size:10px;text-transfor
 }
 .profile-close:hover{background:rgba(204,0,51,.12);color:#fff}
 .profile-loading{min-height:420px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:var(--muted)}
-.profile-spinner{width:34px;height:34px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--scarlet2);animation:xo-spin .75s linear infinite}
-@keyframes xo-spin{to{transform:rotate(360deg)}}
+.profile-spinner{width:34px;height:34px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--scarlet2);animation:picklesocial-spin .75s linear infinite}
+@keyframes picklesocial-spin{to{transform:rotate(360deg)}}
 .profile-error{padding:70px 20px;text-align:center;color:#ff8c99}
 .profile-hero{
   display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;padding:8px 44px 22px 0;border-bottom:1px solid var(--line)

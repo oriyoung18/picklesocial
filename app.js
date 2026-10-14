@@ -7,8 +7,8 @@
   const recoveryLinkHint = authUrlParams.get("type") === "recovery";
   const authRedirectError = authUrlParams.get("error_description") || authUrlParams.get("error") || "";
 
-  const cfg = window.XO_CONFIG || {};
-  const authCfg = window.XO_AUTH_CONFIG || {};
+  const cfg = window.PICKLESOCIAL_CONFIG || {};
+  const authCfg = window.PICKLESOCIAL_AUTH_CONFIG || {};
   const turnstileSiteKey = String(authCfg.TURNSTILE_SITE_KEY || "").trim();
   const turnstileConfigured = !!turnstileSiteKey && !turnstileSiteKey.includes("PASTE_");
   const configured =
@@ -569,7 +569,7 @@
     root.innerHTML = rows.length ? rows.map(a => `
       <details class="audit-row admin-audit-row">
         <summary>
-          <div class="audit-icon">${a.action.startsWith("match_") ? "PB" : a.action.startsWith("identity_") ? "ID" : a.action.startsWith("chat_") ? "CH" : a.action.startsWith("announcement_") ? "AN" : a.action.startsWith("tournament_") ? "TR" : a.action.startsWith("challenge_") ? "VS" : a.action.startsWith("user_") ? "US" : a.action.startsWith("season_") ? "SE" : "XO"}</div>
+          <div class="audit-icon">${a.action.startsWith("match_") ? "PB" : a.action.startsWith("identity_") ? "ID" : a.action.startsWith("chat_") ? "CH" : a.action.startsWith("announcement_") ? "AN" : a.action.startsWith("tournament_") ? "TR" : a.action.startsWith("challenge_") ? "VS" : a.action.startsWith("user_") ? "US" : a.action.startsWith("season_") ? "SE" : "PS"}</div>
           <div class="audit-copy"><strong>${esc(a.actor_name)}</strong><span>${esc(auditDescription(a))}</span></div>
           <time>${new Date(a.created_at).toLocaleString()}</time>
         </summary>
@@ -1423,7 +1423,7 @@
 
     const titles=ctx?.championships?.get(playerId)||0;
     if (titles>0) {
-      badges.push({key:"champion",icon:"🏆",name:"Tournament Champion",detail:`${titles} XO title${titles===1?"":"s"}`,tier:"gold"});
+      badges.push({key:"champion",icon:"🏆",name:"Tournament Champion",detail:`${titles} PickleSocial title${titles===1?"":"s"}`,tier:"gold"});
     }
     if (ctx?.weeklyLeader?.playerIds?.includes(playerId) && ctx.weeklyLeader.value>0) {
       badges.push({key:"weekly-rocket",icon:"↗",name:"Weekly Rocket",detail:`+${ctx.weeklyLeader.value} this week`,tier:"green"});
@@ -1743,7 +1743,7 @@
 
     $$(".chat-channel").forEach(btn => btn.classList.toggle("active", btn.dataset.chatChannel === activeChatChannel));
     const desc = activeChatChannel === "community"
-      ? "General league conversation for verified XO players."
+      ? "General league conversation for verified PickleSocial players."
       : "Looking for a partner, opponents, or a fourth? Post it here.";
     $("chatChannelDescription").textContent = desc;
     $("chatInput").placeholder = activeChatChannel === "community"
@@ -2655,8 +2655,8 @@
       challenge:"VS",
       chat:"#",
       announcement:"📌",
-      system:"XO"
-    })[type] || "XO";
+      system:"PS"
+    })[type] || "PS";
   }
 
   function notificationTime(ts) {
@@ -3338,8 +3338,8 @@
     const msg = String(error?.message || error || "Something went wrong.");
     const lower = msg.toLowerCase();
     if (lower.includes("invalid login credentials")) return "Email or password is incorrect.";
-    if (lower.includes("email not confirmed")) return "Confirm your email before signing in. Check your inbox for the XO verification email.";
-    if (lower.includes("user already registered")) return "That email already has an XO account. Sign in instead.";
+    if (lower.includes("email not confirmed")) return "Confirm your email before signing in. Check your inbox for the PickleSocial verification email.";
+    if (lower.includes("user already registered")) return "That email already has a PickleSocial account. Sign in instead.";
     if (lower.includes("email rate limit exceeded") || lower.includes("rate limit")) return "Too many authentication emails were requested. Wait a minute and try again.";
     if (lower.includes("captcha") || lower.includes("security")) return "Human verification failed or expired. Complete the security check again and retry.";
     if (lower.includes("password") && (lower.includes("weak") || lower.includes("least"))) return "Use a stronger password with at least 8 characters.";
@@ -3411,6 +3411,7 @@
         theme: "dark",
         size: "flexible",
         appearance: "interaction-only",
+        // Keep the deployed verification function's existing action contract.
         action: `xo_${authMode}`.slice(0, 32),
         callback: (token) => {
           turnstileToken = token;
@@ -3500,11 +3501,11 @@
 
     const copy = {
       signin: ["Sign in", "Sign in to submit scores, confirm matches, chat, and manage your player profile."],
-      signup: ["Create league account", "Create your XO account first. After verification, claim your roster name or create a brand-new player."],
+      signup: ["Create league account", "Create your PickleSocial account first. After verification, claim your roster name or create a brand-new player."],
       forgot: ["Reset password", "Enter your account email and we will send you a secure reset link."],
-      checkemail: ["Verify your email", "One quick step before your XO account is active."],
-      reset: ["Choose a new password", "Your reset link is valid. Set a new password for your XO account."]
-    }[authMode] || ["League account", "XO Pickleball authentication."];
+      checkemail: ["Verify your email", "One quick step before your PickleSocial account is active."],
+      reset: ["Choose a new password", "Your reset link is valid. Set a new password for your PickleSocial account."]
+    }[authMode] || ["League account", "PickleSocial authentication."];
 
     $("authTitle").textContent = copy[0];
     $("authSubtitle").textContent = copy[1];
@@ -3817,7 +3818,7 @@
   function subscribeRealtime() {
     if (!configured) return;
     if (realtimeChannel) sb.removeChannel(realtimeChannel);
-    realtimeChannel = sb.channel("xo-league-live-v11")
+    realtimeChannel = sb.channel("picklesocial-league-live-v11")
       .on("postgres_changes", { event:"*", schema:"public", table:"players" }, async () => { adminLoaded=false; await loadData(); })
       .on("postgres_changes", { event:"*", schema:"public", table:"matches" }, async () => {
         await loadData();

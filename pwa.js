@@ -6,7 +6,7 @@
     window.matchMedia("(display-mode: standalone)").matches ||
     window.navigator.standalone === true;
 
-  document.documentElement.classList.toggle("xo-standalone", isStandalone());
+  document.documentElement.classList.toggle("picklesocial-standalone", isStandalone());
 
   // ---------------- Service worker ----------------
   let swRegistration = null;
@@ -26,13 +26,13 @@
           });
         });
       } catch (err) {
-        console.warn("XO service worker registration failed:", err);
+        console.warn("PickleSocial service worker registration failed:", err);
       }
     });
 
     navigator.serviceWorker.addEventListener("controllerchange", () => {
-      if (sessionStorage.getItem("xo-sw-reloading")) return;
-      sessionStorage.setItem("xo-sw-reloading", "1");
+      if (sessionStorage.getItem("picklesocial-sw-reloading")) return;
+      sessionStorage.setItem("picklesocial-sw-reloading", "1");
       location.reload();
     });
   }
@@ -40,14 +40,14 @@
   // ---------------- App startup splash ----------------
   function showSplash() {
     if (!isStandalone()) return;
-    if (sessionStorage.getItem("xo-splash-shown")) return;
-    sessionStorage.setItem("xo-splash-shown", "1");
+    if (sessionStorage.getItem("picklesocial-splash-shown")) return;
+    sessionStorage.setItem("picklesocial-splash-shown", "1");
 
     const splash = document.createElement("div");
-    splash.className = "xo-app-splash";
+    splash.className = "picklesocial-app-splash";
     splash.innerHTML = `
-      <div class="xo-app-splash-icon"><img src="/icon-192.png" alt=""></div>
-      <strong>XO PICKLEBALL</strong>
+      <div class="picklesocial-app-splash-icon"><img src="/icon-192.png" alt=""></div>
+      <strong>PICKLESOCIAL</strong>
       <span>CHI PHI • RUTGERS</span>
     `;
     document.body.appendChild(splash);
@@ -60,11 +60,11 @@
 
   // ---------------- Online / offline ----------------
   function ensureOfflineBanner() {
-    let el = $("#xoOfflineBanner");
+    let el = $("#picklesocialOfflineBanner");
     if (!el) {
       el = document.createElement("div");
-      el.id = "xoOfflineBanner";
-      el.className = "xo-offline-banner";
+      el.id = "picklesocialOfflineBanner";
+      el.className = "picklesocial-offline-banner";
       el.innerHTML = `<span>Offline</span> Live rankings, chat, auth, and score submission need a connection.`;
       document.body.appendChild(el);
     }
@@ -110,63 +110,63 @@
   }
 
   function createBottomNav() {
-    if ($("#xoBottomNav")) return;
+    if ($("#picklesocialBottomNav")) return;
 
     const nav = document.createElement("nav");
-    nav.id = "xoBottomNav";
-    nav.className = "xo-bottom-nav";
+    nav.id = "picklesocialBottomNav";
+    nav.className = "picklesocial-bottom-nav";
     nav.setAttribute("aria-label", "Mobile navigation");
     nav.innerHTML = primaryItems.map(([view, icon, label]) => `
-      <button type="button" class="xo-bottom-item" data-xo-view="${view}">
-        <span class="xo-bottom-icon">${icon}</span>
+      <button type="button" class="picklesocial-bottom-item" data-picklesocial-view="${view}">
+        <span class="picklesocial-bottom-icon">${icon}</span>
         <span>${label}</span>
       </button>
     `).join("") + `
-      <button type="button" class="xo-bottom-item" id="xoMoreButton">
-        <span class="xo-bottom-icon">•••</span>
+      <button type="button" class="picklesocial-bottom-item" id="picklesocialMoreButton">
+        <span class="picklesocial-bottom-icon">•••</span>
         <span>More</span>
       </button>
     `;
     document.body.appendChild(nav);
 
     nav.addEventListener("click", (event) => {
-      const btn = event.target.closest("[data-xo-view]");
-      if (btn) activateView(btn.dataset.xoView);
+      const btn = event.target.closest("[data-picklesocial-view]");
+      if (btn) activateView(btn.dataset.picklesocialView);
     });
-    $("#xoMoreButton", nav)?.addEventListener("click", openMoreSheet);
+    $("#picklesocialMoreButton", nav)?.addEventListener("click", openMoreSheet);
 
     syncBottomNav();
   }
 
   function createMoreSheet() {
-    if ($("#xoMoreSheet")) return;
+    if ($("#picklesocialMoreSheet")) return;
     const overlay = document.createElement("div");
-    overlay.id = "xoMoreOverlay";
-    overlay.className = "xo-more-overlay";
+    overlay.id = "picklesocialMoreOverlay";
+    overlay.className = "picklesocial-more-overlay";
     overlay.addEventListener("click", closeMoreSheet);
 
     const sheet = document.createElement("aside");
-    sheet.id = "xoMoreSheet";
-    sheet.className = "xo-more-sheet";
+    sheet.id = "picklesocialMoreSheet";
+    sheet.className = "picklesocial-more-sheet";
     sheet.innerHTML = `
-      <div class="xo-more-handle"></div>
-      <div class="xo-more-head">
+      <div class="picklesocial-more-handle"></div>
+      <div class="picklesocial-more-head">
         <div>
-          <small>XO PICKLEBALL</small>
+          <small>PICKLESOCIAL</small>
           <strong>More</strong>
         </div>
-        <button type="button" id="xoMoreClose" aria-label="Close">×</button>
+        <button type="button" id="picklesocialMoreClose" aria-label="Close">×</button>
       </div>
-      <div id="xoMoreLinks" class="xo-more-links"></div>
-      <div class="xo-more-install" id="xoInstallArea"></div>
+      <div id="picklesocialMoreLinks" class="picklesocial-more-links"></div>
+      <div class="picklesocial-more-install" id="picklesocialInstallArea"></div>
     `;
     document.body.append(overlay, sheet);
-    $("#xoMoreClose", sheet)?.addEventListener("click", closeMoreSheet);
+    $("#picklesocialMoreClose", sheet)?.addEventListener("click", closeMoreSheet);
   }
 
   function rebuildMoreLinks() {
     createMoreSheet();
-    const host = $("#xoMoreLinks");
+    const host = $("#picklesocialMoreLinks");
     if (!host) return;
 
     const views = [
@@ -183,14 +183,14 @@
     host.innerHTML = views
       .filter(([view]) => navButtonExists(view))
       .map(([view, title, sub]) => `
-        <button type="button" data-xo-more-view="${view}">
+        <button type="button" data-picklesocial-more-view="${view}">
           <span><strong>${title}</strong><small>${sub}</small></span>
           <b>›</b>
         </button>
       `).join("");
 
-    $$("[data-xo-more-view]", host).forEach((btn) => {
-      btn.addEventListener("click", () => activateView(btn.dataset.xoMoreView));
+    $$("[data-picklesocial-more-view]", host).forEach((btn) => {
+      btn.addEventListener("click", () => activateView(btn.dataset.picklesocialMoreView));
     });
 
     renderInstallArea();
@@ -198,27 +198,27 @@
 
   function openMoreSheet() {
     rebuildMoreLinks();
-    $("#xoMoreOverlay")?.classList.add("open");
-    $("#xoMoreSheet")?.classList.add("open");
-    document.body.classList.add("xo-sheet-open");
+    $("#picklesocialMoreOverlay")?.classList.add("open");
+    $("#picklesocialMoreSheet")?.classList.add("open");
+    document.body.classList.add("picklesocial-sheet-open");
   }
 
   function closeMoreSheet() {
-    $("#xoMoreOverlay")?.classList.remove("open");
-    $("#xoMoreSheet")?.classList.remove("open");
-    document.body.classList.remove("xo-sheet-open");
+    $("#picklesocialMoreOverlay")?.classList.remove("open");
+    $("#picklesocialMoreSheet")?.classList.remove("open");
+    document.body.classList.remove("picklesocial-sheet-open");
   }
 
   function syncBottomNav() {
     const active = document.querySelector(".nav-btn.active")?.dataset.view;
-    $$(".xo-bottom-item[data-xo-view]").forEach((btn) => {
-      btn.classList.toggle("active", btn.dataset.xoView === active);
+    $$(".picklesocial-bottom-item[data-picklesocial-view]").forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.picklesocialView === active);
     });
   }
 
   const mutationObserver = new MutationObserver(() => {
     syncBottomNav();
-    if ($("#xoMoreSheet")?.classList.contains("open")) rebuildMoreLinks();
+    if ($("#picklesocialMoreSheet")?.classList.contains("open")) rebuildMoreLinks();
   });
 
   // ---------------- Install UI ----------------
@@ -233,36 +233,36 @@
 
   window.addEventListener("appinstalled", () => {
     deferredInstallPrompt = null;
-    document.documentElement.classList.add("xo-standalone");
-    $("#xoInstallPill")?.remove();
+    document.documentElement.classList.add("picklesocial-standalone");
+    $("#picklesocialInstallPill")?.remove();
     renderInstallArea();
   });
 
   function renderInstallArea() {
-    const area = $("#xoInstallArea");
+    const area = $("#picklesocialInstallArea");
     if (!area) return;
 
     if (isStandalone()) {
-      area.innerHTML = `<div class="xo-installed-badge">✓ Installed as XO Pickleball</div>`;
+      area.innerHTML = `<div class="picklesocial-installed-badge">✓ Installed as PickleSocial</div>`;
       return;
     }
 
     if (deferredInstallPrompt) {
-      area.innerHTML = `<button type="button" class="xo-install-primary" id="xoInstallNow">Install XO Pickleball</button>`;
-      $("#xoInstallNow", area)?.addEventListener("click", installNow);
+      area.innerHTML = `<button type="button" class="picklesocial-install-primary" id="picklesocialInstallNow">Install PickleSocial</button>`;
+      $("#picklesocialInstallNow", area)?.addEventListener("click", installNow);
       return;
     }
 
     if (isIOS) {
       area.innerHTML = `
-        <button type="button" class="xo-install-primary" id="xoIOSInstallHelp">Add XO to iPhone Home Screen</button>
+        <button type="button" class="picklesocial-install-primary" id="picklesocialIOSInstallHelp">Add PickleSocial to iPhone Home Screen</button>
         <small>Opens like an app with its own icon and no browser bar.</small>
       `;
-      $("#xoIOSInstallHelp", area)?.addEventListener("click", showIOSInstallHelp);
+      $("#picklesocialIOSInstallHelp", area)?.addEventListener("click", showIOSInstallHelp);
       return;
     }
 
-    area.innerHTML = `<small>Use your browser's Install / Add to Home Screen option to install XO.</small>`;
+    area.innerHTML = `<small>Use your browser's Install / Add to Home Screen option to install PickleSocial.</small>`;
   }
 
   async function installNow() {
@@ -271,73 +271,73 @@
     try { await deferredInstallPrompt.userChoice; } catch (_) {}
     deferredInstallPrompt = null;
     renderInstallArea();
-    $("#xoInstallPill")?.remove();
+    $("#picklesocialInstallPill")?.remove();
   }
 
   function showIOSInstallHelp() {
-    let modal = $("#xoIOSInstallModal");
+    let modal = $("#picklesocialIOSInstallModal");
     if (!modal) {
       modal = document.createElement("div");
-      modal.id = "xoIOSInstallModal";
-      modal.className = "xo-install-modal";
+      modal.id = "picklesocialIOSInstallModal";
+      modal.className = "picklesocial-install-modal";
       modal.innerHTML = `
-        <div class="xo-install-card">
-          <button type="button" class="xo-install-close" aria-label="Close">×</button>
-          <img src="/apple-touch-icon.png" alt="XO Pickleball icon">
-          <div class="xo-install-kicker">INSTALL XO PICKLEBALL</div>
-          <h3>Put XO on your Home Screen</h3>
+        <div class="picklesocial-install-card">
+          <button type="button" class="picklesocial-install-close" aria-label="Close">×</button>
+          <img src="/apple-touch-icon.png" alt="PickleSocial icon">
+          <div class="picklesocial-install-kicker">INSTALL PICKLESOCIAL</div>
+          <h3>Put PickleSocial on your Home Screen</h3>
           <ol>
-            <li>Open XO in <strong>Safari</strong>.</li>
+            <li>Open PickleSocial in <strong>Safari</strong>.</li>
             <li>Tap the <strong>Share</strong> button.</li>
             <li>Choose <strong>Add to Home Screen</strong>.</li>
             <li>Turn on <strong>Open as Web App</strong> if shown, then tap <strong>Add</strong>.</li>
           </ol>
-          <p>After that, XO launches from its own icon like an app.</p>
+          <p>After that, PickleSocial launches from its own icon like an app.</p>
         </div>
       `;
       document.body.appendChild(modal);
       modal.addEventListener("click", (event) => {
-        if (event.target === modal || event.target.closest(".xo-install-close")) modal.classList.remove("open");
+        if (event.target === modal || event.target.closest(".picklesocial-install-close")) modal.classList.remove("open");
       });
     }
     modal.classList.add("open");
   }
 
   function maybeShowInstallPill() {
-    if (isStandalone() || $("#xoInstallPill")) return;
-    const dismissedAt = Number(localStorage.getItem("xo-install-dismissed") || 0);
+    if (isStandalone() || $("#picklesocialInstallPill")) return;
+    const dismissedAt = Number(localStorage.getItem("picklesocial-install-dismissed") || 0);
     if (Date.now() - dismissedAt < 7 * 24 * 60 * 60 * 1000) return;
     if (!isIOS && !deferredInstallPrompt) return;
 
     const pill = document.createElement("div");
-    pill.id = "xoInstallPill";
-    pill.className = "xo-install-pill";
+    pill.id = "picklesocialInstallPill";
+    pill.className = "picklesocial-install-pill";
     pill.innerHTML = `
       <img src="/icon-192.png" alt="">
-      <span><strong>Install XO</strong><small>Add it to your Home Screen</small></span>
-      <button type="button" class="xo-install-pill-go">Install</button>
-      <button type="button" class="xo-install-pill-close" aria-label="Dismiss">×</button>
+      <span><strong>Install PickleSocial</strong><small>Add it to your Home Screen</small></span>
+      <button type="button" class="picklesocial-install-pill-go">Install</button>
+      <button type="button" class="picklesocial-install-pill-close" aria-label="Dismiss">×</button>
     `;
     document.body.appendChild(pill);
 
-    $(".xo-install-pill-go", pill)?.addEventListener("click", () => {
+    $(".picklesocial-install-pill-go", pill)?.addEventListener("click", () => {
       if (deferredInstallPrompt) installNow();
       else showIOSInstallHelp();
     });
-    $(".xo-install-pill-close", pill)?.addEventListener("click", () => {
-      localStorage.setItem("xo-install-dismissed", String(Date.now()));
+    $(".picklesocial-install-pill-close", pill)?.addEventListener("click", () => {
+      localStorage.setItem("picklesocial-install-dismissed", String(Date.now()));
       pill.remove();
     });
   }
 
   // ---------------- App update toast ----------------
   function showUpdateToast() {
-    if ($("#xoUpdateToast")) return;
+    if ($("#picklesocialUpdateToast")) return;
     const toast = document.createElement("div");
-    toast.id = "xoUpdateToast";
-    toast.className = "xo-update-toast";
+    toast.id = "picklesocialUpdateToast";
+    toast.className = "picklesocial-update-toast";
     toast.innerHTML = `
-      <span><strong>XO update ready</strong><small>Reload for the newest version.</small></span>
+      <span><strong>PickleSocial update ready</strong><small>Reload for the newest version.</small></span>
       <button type="button">Update</button>
     `;
     document.body.appendChild(toast);
@@ -369,7 +369,7 @@
     }
 
     window.matchMedia("(display-mode: standalone)").addEventListener?.("change", () => {
-      document.documentElement.classList.toggle("xo-standalone", isStandalone());
+      document.documentElement.classList.toggle("picklesocial-standalone", isStandalone());
       renderInstallArea();
     });
   }

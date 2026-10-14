@@ -1,13 +1,13 @@
 // Upgrade 13 — Production Auth public configuration.
 // The Turnstile SITE KEY is public and safe to keep in GitHub.
 // NEVER put your Cloudflare Turnstile secret key here. The secret belongs only in Supabase.
-window.XO_AUTH_CONFIG = {
+window.PICKLESOCIAL_AUTH_CONFIG = {
   TURNSTILE_SITE_KEY: "0x4AAAAAAE334685OblUfDnv"
 };
 
 // PWA bootstrap.
 // This is intentionally loaded from auth-config.js so the PWA upgrade can be
-// installed without rewriting XO's large index.html/app.js files.
+// installed without rewriting PickleSocial's large index.html/app.js files.
 (() => {
   const head = document.head;
 
@@ -44,7 +44,7 @@ window.XO_AUTH_CONFIG = {
   meta("theme-color", "#111318");
   meta("apple-mobile-web-app-capable", "yes");
   meta("apple-mobile-web-app-status-bar-style", "black-translucent");
-  meta("apple-mobile-web-app-title", "XO Pickleball");
+  meta("apple-mobile-web-app-title", "PickleSocial");
   meta("mobile-web-app-capable", "yes");
 
   link("manifest", "/manifest.webmanifest");

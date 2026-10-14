@@ -1,11 +1,11 @@
-/* XO Pickleball PWA / mobile layer */
+/* PickleSocial PWA / mobile layer */
 :root {
-  --xo-pwa-bg: #0c0e12;
-  --xo-pwa-panel: #11151d;
-  --xo-pwa-border: #2b3340;
-  --xo-pwa-scarlet: #d9083f;
-  --xo-pwa-gold: #f2c94c;
-  --xo-pwa-muted: #9ba6b7;
+  --picklesocial-pwa-bg: #0c0e12;
+  --picklesocial-pwa-panel: #11151d;
+  --picklesocial-pwa-border: #2b3340;
+  --picklesocial-pwa-scarlet: #d9083f;
+  --picklesocial-pwa-gold: #f2c94c;
+  --picklesocial-pwa-muted: #9ba6b7;
 }
 
 html {
@@ -13,26 +13,26 @@ html {
   overscroll-behavior-y: none;
 }
 
-body.xo-sheet-open {
+body.picklesocial-sheet-open {
   overflow: hidden;
 }
 
-.xo-bottom-nav,
-.xo-more-overlay,
-.xo-more-sheet,
-.xo-install-pill,
-.xo-install-modal,
-.xo-offline-banner,
-.xo-update-toast,
-.xo-app-splash {
+.picklesocial-bottom-nav,
+.picklesocial-more-overlay,
+.picklesocial-more-sheet,
+.picklesocial-install-pill,
+.picklesocial-install-modal,
+.picklesocial-offline-banner,
+.picklesocial-update-toast,
+.picklesocial-app-splash {
   font-family: inherit;
 }
 
-.xo-bottom-nav {
+.picklesocial-bottom-nav {
   display: none;
 }
 
-.xo-offline-banner {
+.picklesocial-offline-banner {
   position: fixed;
   z-index: 99990;
   top: calc(env(safe-area-inset-top, 0px) + 8px);
@@ -49,18 +49,18 @@ body.xo-sheet-open {
   text-align: center;
   transition: transform .25s ease;
 }
-.xo-offline-banner span {
-  color: var(--xo-pwa-gold);
+.picklesocial-offline-banner span {
+  color: var(--picklesocial-pwa-gold);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: .08em;
   margin-right: 6px;
 }
-.xo-offline-banner.show {
+.picklesocial-offline-banner.show {
   transform: translate(-50%, 0);
 }
 
-.xo-app-splash {
+.picklesocial-app-splash {
   position: fixed;
   inset: 0;
   z-index: 1000000;
@@ -76,29 +76,29 @@ body.xo-sheet-open {
   opacity: 0;
   transition: opacity .22s ease;
 }
-.xo-app-splash.visible { opacity: 1; }
-.xo-app-splash.leaving { opacity: 0; pointer-events: none; }
-.xo-app-splash-icon {
+.picklesocial-app-splash.visible { opacity: 1; }
+.picklesocial-app-splash.leaving { opacity: 0; pointer-events: none; }
+.picklesocial-app-splash-icon {
   width: 104px;
   height: 104px;
   border-radius: 26px;
   overflow: hidden;
   box-shadow: 0 20px 50px rgba(0,0,0,.4);
 }
-.xo-app-splash-icon img { width: 100%; height: 100%; display: block; }
-.xo-app-splash strong {
+.picklesocial-app-splash-icon img { width: 100%; height: 100%; display: block; }
+.picklesocial-app-splash strong {
   margin-top: 10px;
   font-size: 22px;
   letter-spacing: .03em;
 }
-.xo-app-splash span {
-  color: var(--xo-pwa-gold);
+.picklesocial-app-splash span {
+  color: var(--picklesocial-pwa-gold);
   font-size: 10px;
   letter-spacing: .22em;
   font-weight: 900;
 }
 
-.xo-more-overlay {
+.picklesocial-more-overlay {
   display: none;
   position: fixed;
   inset: 0;
@@ -106,9 +106,9 @@ body.xo-sheet-open {
   background: rgba(0,0,0,.62);
   backdrop-filter: blur(4px);
 }
-.xo-more-overlay.open { display: block; }
+.picklesocial-more-overlay.open { display: block; }
 
-.xo-more-sheet {
+.picklesocial-more-sheet {
   position: fixed;
   z-index: 99981;
   left: 0;
@@ -125,29 +125,29 @@ body.xo-sheet-open {
   transition: transform .26s cubic-bezier(.2,.8,.2,1);
   box-shadow: 0 -20px 70px rgba(0,0,0,.55);
 }
-.xo-more-sheet.open { transform: translateY(0); }
-.xo-more-handle {
+.picklesocial-more-sheet.open { transform: translateY(0); }
+.picklesocial-more-handle {
   width: 42px;
   height: 5px;
   border-radius: 999px;
   background: #4a5261;
   margin: 2px auto 16px;
 }
-.xo-more-head {
+.picklesocial-more-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 10px;
 }
-.xo-more-head > div { display: flex; flex-direction: column; gap: 2px; }
-.xo-more-head small {
-  color: var(--xo-pwa-gold);
+.picklesocial-more-head > div { display: flex; flex-direction: column; gap: 2px; }
+.picklesocial-more-head small {
+  color: var(--picklesocial-pwa-gold);
   font-weight: 900;
   letter-spacing: .14em;
   font-size: 10px;
 }
-.xo-more-head strong { font-size: 26px; }
-.xo-more-head button {
+.picklesocial-more-head strong { font-size: 26px; }
+.picklesocial-more-head button {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -156,11 +156,11 @@ body.xo-sheet-open {
   color: #b8c0cc;
   font-size: 26px;
 }
-.xo-more-links {
+.picklesocial-more-links {
   display: grid;
   gap: 8px;
 }
-.xo-more-links button {
+.picklesocial-more-links button {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -173,37 +173,37 @@ body.xo-sheet-open {
   color: white;
   text-align: left;
 }
-.xo-more-links button > span {
+.picklesocial-more-links button > span {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
-.xo-more-links button strong { font-size: 14px; }
-.xo-more-links button small { color: #8995a7; font-size: 11px; }
-.xo-more-links button b { color: var(--xo-pwa-gold); font-size: 24px; }
+.picklesocial-more-links button strong { font-size: 14px; }
+.picklesocial-more-links button small { color: #8995a7; font-size: 11px; }
+.picklesocial-more-links button b { color: var(--picklesocial-pwa-gold); font-size: 24px; }
 
-.xo-more-install {
+.picklesocial-more-install {
   padding-top: 12px;
   margin-top: 12px;
   border-top: 1px solid #252d37;
 }
-.xo-more-install > small {
+.picklesocial-more-install > small {
   color: #8995a7;
   display: block;
   line-height: 1.5;
   margin-top: 7px;
 }
-.xo-install-primary {
+.picklesocial-install-primary {
   width: 100%;
   padding: 13px 16px;
   border: 0;
   border-radius: 13px;
-  background: var(--xo-pwa-gold);
+  background: var(--picklesocial-pwa-gold);
   color: #17130a;
   font-weight: 900;
   font-size: 14px;
 }
-.xo-installed-badge {
+.picklesocial-installed-badge {
   padding: 11px 13px;
   border: 1px solid rgba(69,213,149,.28);
   background: rgba(69,213,149,.08);
@@ -213,7 +213,7 @@ body.xo-sheet-open {
   font-weight: 800;
 }
 
-.xo-install-pill {
+.picklesocial-install-pill {
   position: fixed;
   z-index: 99970;
   right: 16px;
@@ -230,34 +230,34 @@ body.xo-sheet-open {
   box-shadow: 0 15px 50px rgba(0,0,0,.48);
   color: white;
 }
-.xo-install-pill img {
+.picklesocial-install-pill img {
   width: 42px;
   height: 42px;
   border-radius: 11px;
 }
-.xo-install-pill > span {
+.picklesocial-install-pill > span {
   display: flex;
   flex-direction: column;
   min-width: 0;
 }
-.xo-install-pill strong { font-size: 13px; }
-.xo-install-pill small { color: #8e9aac; font-size: 10px; }
-.xo-install-pill-go {
+.picklesocial-install-pill strong { font-size: 13px; }
+.picklesocial-install-pill small { color: #8e9aac; font-size: 10px; }
+.picklesocial-install-pill-go {
   border: 0;
   border-radius: 10px;
   padding: 9px 12px;
-  background: var(--xo-pwa-scarlet);
+  background: var(--picklesocial-pwa-scarlet);
   color: white;
   font-weight: 900;
 }
-.xo-install-pill-close {
+.picklesocial-install-pill-close {
   border: 0;
   background: transparent;
   color: #8590a0;
   font-size: 20px;
 }
 
-.xo-install-modal {
+.picklesocial-install-modal {
   display: none;
   position: fixed;
   inset: 0;
@@ -267,8 +267,8 @@ body.xo-sheet-open {
   background: rgba(0,0,0,.75);
   backdrop-filter: blur(8px);
 }
-.xo-install-modal.open { display: grid; }
-.xo-install-card {
+.picklesocial-install-modal.open { display: grid; }
+.picklesocial-install-card {
   position: relative;
   width: min(420px, 100%);
   padding: 28px 22px 22px;
@@ -278,27 +278,27 @@ body.xo-sheet-open {
   color: white;
   box-shadow: 0 30px 80px rgba(0,0,0,.55);
 }
-.xo-install-card img {
+.picklesocial-install-card img {
   width: 68px;
   height: 68px;
   border-radius: 17px;
   display: block;
   margin-bottom: 14px;
 }
-.xo-install-card h3 { margin: 5px 0 12px; font-size: 24px; }
-.xo-install-card p, .xo-install-card li {
+.picklesocial-install-card h3 { margin: 5px 0 12px; font-size: 24px; }
+.picklesocial-install-card p, .picklesocial-install-card li {
   color: #b7c0cd;
   font-size: 13px;
   line-height: 1.55;
 }
-.xo-install-card ol { padding-left: 20px; }
-.xo-install-kicker {
-  color: var(--xo-pwa-gold);
+.picklesocial-install-card ol { padding-left: 20px; }
+.picklesocial-install-kicker {
+  color: var(--picklesocial-pwa-gold);
   font-size: 10px;
   font-weight: 900;
   letter-spacing: .14em;
 }
-.xo-install-close {
+.picklesocial-install-close {
   position: absolute;
   top: 14px;
   right: 14px;
@@ -311,7 +311,7 @@ body.xo-sheet-open {
   font-size: 22px;
 }
 
-.xo-update-toast {
+.picklesocial-update-toast {
   position: fixed;
   z-index: 99972;
   left: 50%;
@@ -328,18 +328,18 @@ body.xo-sheet-open {
   color: white;
   box-shadow: 0 18px 50px rgba(0,0,0,.45);
 }
-.xo-update-toast span {
+.picklesocial-update-toast span {
   display: flex;
   flex: 1;
   flex-direction: column;
 }
-.xo-update-toast strong { font-size: 13px; }
-.xo-update-toast small { color: #8c98a9; font-size: 10px; }
-.xo-update-toast button {
+.picklesocial-update-toast strong { font-size: 13px; }
+.picklesocial-update-toast small { color: #8c98a9; font-size: 10px; }
+.picklesocial-update-toast button {
   border: 0;
   border-radius: 9px;
   padding: 9px 12px;
-  background: var(--xo-pwa-gold);
+  background: var(--picklesocial-pwa-gold);
   color: #151108;
   font-weight: 900;
 }
@@ -351,7 +351,7 @@ body.xo-sheet-open {
   .site-header {
     padding-top: max(10px, env(safe-area-inset-top, 0px));
   }
-  .xo-install-pill {
+  .picklesocial-install-pill {
     display: none !important;
   }
 }
@@ -512,7 +512,7 @@ body.xo-sheet-open {
     font-size: 16px;
   }
 
-  .xo-bottom-nav {
+  .picklesocial-bottom-nav {
     position: fixed;
     z-index: 99960;
     left: 8px;
@@ -529,7 +529,7 @@ body.xo-sheet-open {
     box-shadow: 0 16px 50px rgba(0,0,0,.5);
   }
 
-  .xo-bottom-item {
+  .picklesocial-bottom-item {
     min-width: 0;
     height: 54px;
     display: flex;
@@ -546,33 +546,33 @@ body.xo-sheet-open {
     font-weight: 800;
   }
 
-  .xo-bottom-item.active {
+  .picklesocial-bottom-item.active {
     color: white;
     background: linear-gradient(180deg, rgba(217,8,63,.18), rgba(217,8,63,.08));
   }
 
-  .xo-bottom-item.active .xo-bottom-icon {
-    color: var(--xo-pwa-scarlet);
+  .picklesocial-bottom-item.active .picklesocial-bottom-icon {
+    color: var(--picklesocial-pwa-scarlet);
   }
 
-  .xo-bottom-icon {
+  .picklesocial-bottom-icon {
     height: 22px;
     line-height: 22px;
     font-size: 19px;
     color: #a4adba;
   }
 
-  .xo-install-pill {
+  .picklesocial-install-pill {
     right: 10px;
     bottom: calc(84px + env(safe-area-inset-bottom, 0px));
     width: calc(100vw - 20px);
   }
 
-  .xo-update-toast {
+  .picklesocial-update-toast {
     bottom: calc(86px + env(safe-area-inset-bottom, 0px));
   }
 
-  .xo-more-sheet {
+  .picklesocial-more-sheet {
     padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px));
   }
 }
@@ -591,16 +591,16 @@ body.xo-sheet-open {
     flex-wrap: wrap !important;
   }
 
-  .xo-install-pill {
+  .picklesocial-install-pill {
     grid-template-columns: 38px 1fr auto;
   }
 
-  .xo-install-pill img {
+  .picklesocial-install-pill img {
     width: 38px;
     height: 38px;
   }
 
-  .xo-install-pill-close {
+  .picklesocial-install-pill-close {
     position: absolute;
     right: 3px;
     top: -13px;

@@ -1,7 +1,7 @@
 {
   "id": "/",
-  "name": "XO Pickleball",
-  "short_name": "XO Pickleball",
+  "name": "PickleSocial",
+  "short_name": "PickleSocial",
   "description": "Chi Phi Rutgers pickleball rankings, matches, challenges, tournaments, chat, and stats.",
   "start_url": "/",
   "scope": "/",
