@@ -212,7 +212,10 @@
   function syncBottomNav() {
     const active = document.querySelector(".nav-btn.active")?.dataset.view;
     $$(".picklesocial-bottom-item[data-picklesocial-view]").forEach((btn) => {
-      btn.classList.toggle("active", btn.dataset.picklesocialView === active);
+      const isActive = btn.dataset.picklesocialView === active;
+      btn.classList.toggle("active", isActive);
+      if (isActive) btn.setAttribute("aria-current", "page");
+      else btn.removeAttribute("aria-current");
     });
   }
 

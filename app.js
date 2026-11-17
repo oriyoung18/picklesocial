@@ -111,7 +111,12 @@
 
   function setView(id) {
     $$(".view").forEach(v => v.classList.toggle("active", v.id === id));
-    $$(".nav-btn").forEach(b => b.classList.toggle("active", b.dataset.view === id));
+    $$(".nav-btn").forEach((button) => {
+      const isActive = button.dataset.view === id;
+      button.classList.toggle("active", isActive);
+      if (isActive) button.setAttribute("aria-current", "page");
+      else button.removeAttribute("aria-current");
+    });
     if (id === "commissioner") {
       renderCommissionerGate();
       loadAdminDashboardData();
